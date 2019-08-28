@@ -122,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 SOCIAL_AUTH_REDIRECT_IS_HTTP = True
 STATIC_URL = '/static/'
-STATIC_ROOT='/static/'
+STATIC_ROOT='static'
 #SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
