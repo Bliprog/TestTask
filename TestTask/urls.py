@@ -18,7 +18,7 @@ from django.urls import path,include
 from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index,name='index'),
+    path('/',views.index,name='index'),
     path('', include('social_django.urls')),
     path('logined/',views.logined, name='logined'),
     path('logout/',views.logout_view, name='logout'),
