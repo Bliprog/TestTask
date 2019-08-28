@@ -125,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 SOCIAL_AUTH_REDIRECT_IS_HTTP = True
 STATIC_URL = '/static/'
-STATIC_ROOT='static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
@@ -135,3 +135,6 @@ SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['friends']
 SOCIAL_AUTH_VK_OAUTH2_KEY = '7114650'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'fiOkx95xDpnOQXStVBct'
 LOGIN_REDIRECT_URL = '/logined'
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
