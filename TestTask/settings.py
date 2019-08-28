@@ -78,14 +78,11 @@ WSGI_APPLICATION = 'TestTask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'TestTask',
-        'USER': 'postgres',
-        'PASSWORD': 'Skorpion1',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
@@ -125,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 SOCIAL_AUTH_REDIRECT_IS_HTTP = True
 STATIC_URL = '/static/'
-SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+#SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
     #'django.contrib.auth.backends.ModelBackend',
