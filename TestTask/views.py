@@ -17,8 +17,6 @@ def index(request):
 
 def logined(request):
     user=request.user
-    for s in user.social_auth.filter(provider='vk-oauth2'):
-        print(s.extra_data)
     social=user.social_auth.get(provider='vk-oauth2')
     response= requests.get(
         'https://api.vk.com/method/friends.get',
@@ -29,10 +27,8 @@ def logined(request):
                 'v':'5.101'}
     )
     friend_list=response.json()['response']['items']
-   # frriend_id_list=[]
     friend_name_list=[]
     for friend in friend_list:
-   #    frriend_id_list.append('https://vk.com/id{}'.format(str(friend['id'])))
         friend_name_list.append('{0} {1}'.format(str(friend['first_name']),str(friend['last_name'])))
 
     return render(request, 'logined.html',{'friend_name':friend_name_list,'first_name':request.user.first_name,'last_name':request.user.last_name})
