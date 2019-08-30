@@ -10,12 +10,14 @@ def logout_view(request):
 
 
 def index(request):
+    request.session.clear_expired()
     if request.user.is_authenticated:
         return logined(request)
     else:
         return render(request,'index.html')
 
 def logined(request):
+    request.session.set_expiry(86400)
     user=request.user
     social=user.social_auth.get(provider='vk-oauth2')
     response= requests.get(
