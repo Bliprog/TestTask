@@ -18,7 +18,6 @@ def index(request):
         return render(request,'index.html')
 
 def logined(request):
-
     user=request.user
     social=user.social_auth.get(provider='vk-oauth2')
     response= requests.get(
@@ -29,6 +28,8 @@ def logined(request):
                 'access_token': social.extra_data['access_token'],
                 'v':'5.101'}
     )
+    if KeyError(response):
+        return logout(request)
     friend_list=response.json()['response']['items']
     friend_name_list=[]
     for friend in friend_list:
