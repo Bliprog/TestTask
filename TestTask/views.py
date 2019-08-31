@@ -10,7 +10,7 @@ def logout_view(request):
 
 
 def index(request):
-    request.session.clear_expired()#очиста устаревших сессий
+    request.session.clear_expired()#очиста устаревших сесси
     if request.user.is_authenticated:
         return logined(request)
     else:
