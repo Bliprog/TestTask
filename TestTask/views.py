@@ -16,9 +16,10 @@ def index(request):
         return render(request,'index.html')
 
 def logined(request):
-    user=request.user
-    social=user.social_auth.get(provider='vk-oauth2')
-    response= requests.get(
+   try:
+       user = request.user
+       social = user.social_auth.get(provider='vk-oauth2')
+       response= requests.get(
         'https://api.vk.com/method/friends.get',
         params={'order':'random',
                 'fields':('nickname'),
@@ -26,8 +27,9 @@ def logined(request):
                 'access_token': social.extra_data['access_token'],
                 'v':'5.101'}
     )
-    if KeyError(response):
-        return logout(request)
+   except KeyError:
+        return logout_view(request)
+   else:
     friend_list=response.json()['response']['items']
     friend_name_list=[]
     for friend in friend_list:
