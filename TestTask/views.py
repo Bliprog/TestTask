@@ -15,26 +15,26 @@ def index(request):
     else:
         return render(request,'index.html')
 
+
 def logined(request):
-   try:
-       user = request.user
-       social = user.social_auth.get(provider='vk-oauth2')
-       response= requests.get(
+    user = request.user
+    social = user.social_auth.get(provider='vk-oauth2')
+    response = requests.get(
         'https://api.vk.com/method/friends.get',
-        params={'order':'random',
-                'fields':('nickname'),
-                'count':'5',
+        params={'order': 'random',
+                'fields': ('nickname'),
+                'count': '5',
                 'access_token': social.extra_data['access_token'],
-                'v':'5.101'}
+                'v': '5.101'}
     )
-   except KeyError:
+    try:
+        friend_list = response.json()['response']['items']
+    except KeyError:
         return logout_view(request)
-   else:
-    friend_list=response.json()['response']['items']
-    friend_name_list=[]
+
+    friend_name_list = []
     for friend in friend_list:
-        friend_name_list.append('{0} {1}'.format(str(friend['first_name']),str(friend['last_name'])))
+        friend_name_list.append('{0} {1}'.format(str(friend['first_name']), str(friend['last_name'])))
 
-    return render(request, 'logined.html',{'friend_name':friend_name_list,'first_name':request.user.first_name,'last_name':request.user.last_name})
-
-
+    return render(request, 'logined.html', {'friend_name': friend_name_list, 'first_name': request.user.first_name,
+                                            'last_name': request.user.last_name})
