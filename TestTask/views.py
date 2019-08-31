@@ -10,11 +10,9 @@ def logout_view(request):
 
 
 def index(request):
-   # request.session.clear_expired()#очиста устаревших сесси
     if request.user.is_authenticated:
         return logined(request)
     else:
-      #  request.session.set_expiry(86400)  # Время жизни сессии = время действительности access_token
         return render(request,'index.html')
 
 def logined(request):
